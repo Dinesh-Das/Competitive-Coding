@@ -1,8 +1,13 @@
-import java.math.BigInteger;
 class Solution {
     public int arraySign(int[] nums) {
-        BigInteger prod=new BigInteger("1");
-        for(int val:nums) prod=prod.multiply(BigInteger.valueOf(val));
-        return prod.compareTo(new BigInteger("0"));
+        int neg=0;
+        for(int val:nums){
+            if(val==0){
+                return 0;
+            }
+            if(val<0) neg++;
+        }
+        if(neg%2==0) return 1;
+        return -1;
     }
 }
