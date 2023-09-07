@@ -13,9 +13,7 @@ class Solution {
         ListNode cur=head;
         while(cur!=null){
             if(cur.next !=null){
-                int a=cur.val;
-                int b=cur.next.val;
-                ListNode node=new ListNode(gcd(a,b));
+                ListNode node=new ListNode(gcd(cur.val,cur.next.val));
                 node.next=cur.next;
                 cur.next=node;
                 cur=cur.next;
@@ -25,12 +23,13 @@ class Solution {
         return head;
     }
     public int gcd(int a,int b){
-        int gcd=1;
-        for(int i=1;i<=Math.max(a,b);i++){
-            if(a%i==0 && b%i==0){
-                gcd=i;
-            }
-        }
-        return gcd;
+       while(a!=b){
+           if(a>b){
+               a=a-b;
+           }else{
+               b=b-a;
+           }
+       }
+       return a;
     }
 }
