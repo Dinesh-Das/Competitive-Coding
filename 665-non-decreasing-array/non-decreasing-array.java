@@ -8,8 +8,6 @@ class Solution {
                 if(cnt>1)return false;
                 if(i>=2 && nums[i-2]>nums[i]){
                     nums[i]=nums[i-1];
-                }else{
-                    nums[i-1]=nums[i];
                 }
             }
         }
