@@ -13,7 +13,7 @@ class Solution {
         ListNode temp=head;
         int res=temp.val;
         while(temp.next!=null){
-            res=res*2+temp.next.val;
+            res=(res << 1) | temp.next.val;
             temp=temp.next;
         }
         return res;
