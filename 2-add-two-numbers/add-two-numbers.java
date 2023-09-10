@@ -13,56 +13,17 @@ class Solution {
         ListNode cur=new ListNode();
         ListNode result=cur;
         int carry=0;
-        while(l1!=null && l2!=null){
-            int sum=l1.val+l2.val+carry;
-            int val=0;
-            if(sum>=10){
-                val=sum%10;
-                carry=1;
-            }else{
-                val=sum;
-                carry=0;
-            }
-            ListNode node=new ListNode(val);
-            cur.next=node;
+        while(l1!=null || l2!=null || carry!=0){
+            int a= (l1!=null)?l1.val:0;
+            int b= (l2!=null)?l2.val:0;
+            int sum=a+b+carry;
+            carry=sum/10;
+            cur.next=new ListNode(sum%10);;
             cur=cur.next;
-            l1=l1.next;
-            l2=l2.next;
-        }
-        while(l2!=null){
-            int sum=l2.val+carry;
-            int val=0;
-            if(sum>=10){
-                val=sum%10;
-                carry=1;
-            }else{
-                val=sum;
-                carry=0;
-            }
-            ListNode node=new ListNode(val);
-            cur.next=node;
-            cur=cur.next;
-            l2=l2.next;
-        }
-        while(l1!=null){
-            int sum=l1.val+carry;
-            int val=0;
-            if(sum>=10){
-                val=sum%10;
-                carry=1;
-            }else{
-                val=sum;
-                carry=0;
-            }
-            ListNode node=new ListNode(val);
-            cur.next=node;
-            cur=cur.next;
-            l1=l1.next;
-        }
-        if(carry==1){
-            ListNode node=new ListNode(carry);
-            cur.next=node;
-            cur=cur.next;
+            if(l1!=null)
+                l1=l1.next;
+            if(l2!=null)
+                l2=l2.next;
         }
         return result.next;
     }
