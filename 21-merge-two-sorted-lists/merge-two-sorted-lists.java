@@ -15,20 +15,20 @@ class Solution {
         while(list1!=null || list2!=null){
             if(list1!=null && list2!=null){
                 if(list1.val < list2.val){
-                    cur.next=new ListNode(list1.val);
+                    cur.next=list1;
                     cur=cur.next;
                     list1=list1.next;
                 }else{
-                    cur.next=new ListNode(list2.val);
+                    cur.next=list2;
                     cur=cur.next;
                     list2=list2.next;
                 }
-            }else if(list1!=null && list2==null){
-                cur.next=new ListNode(list1.val);
+            }else if(list1!=null){
+                cur.next=list1;
                 cur=cur.next;
                 list1=list1.next;
             }else{
-                cur.next=new ListNode(list2.val);
+                cur.next=list2;
                 cur=cur.next;
                 list2=list2.next;
             }
