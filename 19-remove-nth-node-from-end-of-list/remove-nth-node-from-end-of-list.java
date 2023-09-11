@@ -10,22 +10,21 @@
  */
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        List<Integer> list =new ArrayList<>();
-        while(head!=null){
-            list.add(head.val);
-            head=head.next;
+        int  size=0;
+        ListNode cur=head;
+        ListNode tmp=new ListNode();
+        tmp.next=head;
+        while(cur!=null){
+            size++;
+            cur=cur.next;
         }
-        ListNode node=new ListNode();
-        head=node;
-        System.out.println(list);
-        for(int i=0;i<list.size();i++){
-            if(i==list.size()-n){
-                continue;
-            }else{  
-                node.next=new ListNode(list.get(i));
-                node=node.next;
-            }
+        size-=n;
+        cur=tmp;
+        while(size>0){
+            size--;
+            cur=cur.next;
         }
-        return head.next;
+        cur.next=cur.next.next;
+        return tmp.next;   
     }
 }
