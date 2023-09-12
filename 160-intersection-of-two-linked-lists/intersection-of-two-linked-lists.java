@@ -11,19 +11,19 @@
  */
 public class Solution {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        ListNode tmpA=headA;
-        ListNode tmpB=headB;
-        while(tmpA!=null){
-            while(tmpB!=null){
-                if(tmpA == tmpB){
-                    return tmpA;
-                }
-                tmpB=tmpB.next;
+        Map<ListNode,Boolean> map = new HashMap<>();
+        ListNode tmp=headA;
+        while(tmp!=null){
+            map.put(tmp,true);
+            tmp=tmp.next;
+        }
+        tmp=headB;
+        while(tmp!=null){
+            if(map.containsKey(tmp)){
+                return tmp;
             }
-            tmpB=headB;
-            tmpA=tmpA.next;
+            tmp=tmp.next;
         }
         return null;
-        
     }
 }
