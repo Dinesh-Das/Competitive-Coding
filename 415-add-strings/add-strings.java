@@ -7,13 +7,8 @@ class Solution {
             int a= i>=0 ? Character.getNumericValue(num1.charAt(i)) :0;
             int b= j>=0 ? Character.getNumericValue(num2.charAt(j)): 0;
             int sum= a+b + carry;
-            if(sum < 10){
-                sb.append(sum);
-                carry=sum/10;
-            }else{
-                sb.append(sum%10);
-                carry=sum/10;
-            }
+            sb.append(sum%10);
+            carry=sum/10;
             i--;j--;
         }
         if(carry!=0){
