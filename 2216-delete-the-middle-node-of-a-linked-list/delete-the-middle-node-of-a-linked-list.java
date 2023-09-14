@@ -10,20 +10,15 @@
  */
 class Solution {
     public ListNode deleteMiddle(ListNode head) {
-        List<Integer> list=new ArrayList<>();
-        while(head!=null){
-            list.add(head.val);
-            head=head.next;
+        if(head.next==null)return null;
+        ListNode slow=head;
+        ListNode fast=head.next.next;
+        while(fast!=null && fast.next!=null){
+            fast=fast.next.next;
+            slow=slow.next;
         }
-        int n=list.size();
-        list.remove(n/2);
-        ListNode cur=new ListNode(0);
-        head=cur;
-        for(int val:list){
-            cur.next=new ListNode(val);
-            cur=cur.next;
-        }
-        return head.next;
+        slow.next=slow.next.next;
+        return head;
         
     }
 }
