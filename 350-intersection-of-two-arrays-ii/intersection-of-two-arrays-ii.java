@@ -1,46 +1,57 @@
 class Solution {
-
-    public int binarySearch(List<Integer>nums,int target){
-        int s=0;
-        int e=nums.size()-1;
-        while(s<=e){
-            int m=s+(e-s)/2;
-            if(nums.get(m) == target) return m;
-            if(nums.get(m) > target) e=m-1;
-            else s=m+1;
+    public Map<Integer,Integer> fillMap(int[] nums){
+        Map<Integer,Integer> map= new HashMap<>();
+        for(int val:nums) {
+            if(map.containsKey(val)){
+                map.put(val,map.get(val)+1);
+            }else{
+                map.put(val,1);
+            }
         }
-        return -1;
+        return map;
     }
-
     public int[] intersect(int[] nums1, int[] nums2) {
-        Arrays.sort(nums1);
-        Arrays.sort(nums2);
         int n=nums1.length;
         int m=nums2.length;
-        List<Integer> list=new ArrayList<>();
-        List<Integer> a = new ArrayList<>();
-        List<Integer> b = new ArrayList<>();
-        for(int val:nums1) a.add(val);
-        for(int val:nums2) b.add(val);
-        if(n>=m){
-            for(int val : b){
-                int temp=binarySearch(a,val);
-                if(temp!=-1){
-                    a.remove(temp);
+        Map<Integer,Integer> a= fillMap(nums1);
+        Map<Integer,Integer> b= fillMap(nums2);
+        List<Integer> list=new ArrayList();
+        if(n>m){
+            list=isInMap(a,nums2);
+        }else if(n < m){
+            list=isInMap(b,nums1);
+        }else{
+            list=compareTwoEqualList(nums1,nums2);
+        }
+        int[] res=new int[list.size()];
+        for(int i=0;i<list.size();i++) res[i]=list.get(i);
+        return res;
+    }
+    public List<Integer> compareTwoEqualList(int[] a, int[] b){
+       List<Integer> x= new ArrayList<>();
+       for(int val:a){
+           x.add(val);
+       }
+       List<Integer> res=new ArrayList<>();
+       for(int val:b){
+           if(x.contains(val)){
+               res.add(val);
+               x.remove(x.indexOf(val));
+           }
+       }
+       return res;
+    }
+    public List<Integer> isInMap(Map<Integer,Integer> map, int[]nums){
+        List<Integer> list= new ArrayList<>();
+        for(int val:nums){
+            if(map.containsKey(val)){
+                if(map.get(val) > 0){
+                    map.put(val,map.get(val)-1);
                     list.add(val);
                 }
             }
-        }else{
-            for(int val : a){
-                int temp=binarySearch(b,val);
-                if(temp!=-1){
-                    list.add(val);
-                    b.remove(temp);
-                } 
-            }
         }
-        int[] res=new int[list.size()];
-        for(int i=0;i<res.length;i++) res[i]=list.get(i);
-        return res;
+        return list;
     }
+
 }
