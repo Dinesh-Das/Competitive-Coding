@@ -1,29 +1,23 @@
 class Solution {
     public String removeDuplicateLetters(String s) {
-        Map<Character,Integer> map = new HashMap<>();
+        int[] chars = new int[26];
+        boolean[] visited= new boolean[26];
+        Stack<Integer> stack= new Stack<>();
         for(int i=0;i<s.length();i++){
-            char ch=s.charAt(i);
-            map.put(ch,map.getOrDefault(ch,0)+1);
+            chars[s.charAt(i)-'a']=i;
         }
-        Stack<Character> stack= new Stack<>();
+
         for(int i=0;i<s.length();i++){
-            char ch=s.charAt(i);
-            while(!stack.isEmpty() && stack.peek() > ch && map.get(stack.peek()) > 1 && !stack.contains(ch) ){
-                map.put(stack.peek(),map.get(stack.peek())-1);
-                stack.pop();
+            int cur=s.charAt(i)-'a';
+            if(visited[cur]) continue;
+            while(!stack.isEmpty() && stack.peek() > cur && i < chars[stack.peek()]){
+                visited[stack.pop()]=false;
             }
-            if(!stack.contains(ch)){
-                stack.push(ch);
-            }else{
-                map.put(ch,map.get(ch)-1);
-            }
+            stack.push(cur);
+            visited[cur]=true;
         }
         StringBuilder sb = new StringBuilder();
-        // for(char ch: stack) sb.append(ch);
-        for(int i=0;i<stack.size();i++){
-            char ch=stack.get(i);
-            sb.append(ch);
-        }
-        return sb.toString();
+        while(!stack.isEmpty()) sb.append((char)(stack.pop()+'a'));
+        return sb.reverse().toString();
     }
 }
