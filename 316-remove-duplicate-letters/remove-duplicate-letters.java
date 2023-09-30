@@ -1,11 +1,13 @@
 class Solution {
     public String removeDuplicateLetters(String s) {
         Map<Character,Integer> map = new HashMap<>();
-        for(char ch:s.toCharArray()){
+        for(int i=0;i<s.length();i++){
+            char ch=s.charAt(i);
             map.put(ch,map.getOrDefault(ch,0)+1);
         }
         Stack<Character> stack= new Stack<>();
-        for(char ch: s.toCharArray()){
+        for(int i=0;i<s.length();i++){
+            char ch=s.charAt(i);
             while(!stack.isEmpty() && stack.peek() > ch && map.get(stack.peek()) > 1 && !stack.contains(ch) ){
                 map.put(stack.peek(),map.get(stack.peek())-1);
                 stack.pop();
@@ -17,7 +19,11 @@ class Solution {
             }
         }
         StringBuilder sb = new StringBuilder();
-        for(char ch: stack) sb.append(ch);
+        // for(char ch: stack) sb.append(ch);
+        for(int i=0;i<stack.size();i++){
+            char ch=stack.get(i);
+            sb.append(ch);
+        }
         return sb.toString();
     }
 }
