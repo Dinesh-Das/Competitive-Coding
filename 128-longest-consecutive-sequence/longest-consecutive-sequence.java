@@ -11,7 +11,6 @@ class Solution {
             ar[i++]=entry.getKey();
         }
         int cnt=1,max=0;
-        System.out.println(Arrays.toString(ar));
         for(i=0;i<ar.length-1;i++){
             if(ar[i+1]-ar[i] == 1){
                 cnt++;
