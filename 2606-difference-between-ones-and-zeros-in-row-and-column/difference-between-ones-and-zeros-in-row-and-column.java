@@ -1,38 +1,19 @@
 class Solution {
     public int[][] onesMinusZeros(int[][] grid) {
-        int n=grid.length,m=grid[0].length;
-        int[][] diff= new int[n][m];
-        int[] Onerow= new int[n];
-        int[] Zerorow= new int[n];
-        int[] Onecol=new int[m];
-        int[] Zerocol=new int[m];
-        int zero=0,one=0;
-        for(int i=0;i<n;i++){
-            int z=0,o=0;
-            for(int j=0;j<m;j++){
-                if(grid[i][j]==1){
-                    o++;
-                }else{
-                    z++;
-                }
-            }
-            Onerow[i]=o;
-            Zerorow[i]=z;
-        }
-        for(int i=0;i<m;i++){
-            int o=0,z=0;
-            for(int j=0;j<n;j++){
-                if(j < n && grid[j][i]==1) o++;
-                else if(j<n && grid[j][i]==0)z++;
-            }
-            Onecol[i]=o;
-            Zerocol[i]=z;
-        }
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                diff[i][j]=Onerow[i]+Onecol[j] - Zerorow[i]-Zerocol[j];
+        int[] oneRow=new int[grid.length];
+        int[] oneCol=new int[grid[0].length];
+        int res[][] = new int[grid.length][grid[0].length];
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[i].length;j++){
+                oneRow[i]+=grid[i][j];
+                oneCol[j]+=grid[i][j];
             }
         }
-        return diff;
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[i].length;j++){
+                res[i][j]= oneRow[i]+oneCol[j] - (grid.length - oneRow[i]) - (grid[i].length-oneCol[j]);
+            }
+        }
+        return res;
     }
 }
