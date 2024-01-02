@@ -5,7 +5,6 @@ class Solution {
         for(int val:nums){
             map.put(val,map.getOrDefault(val,0)+1);
         }
-        
         System.out.println(map);
         List<Integer> l=new ArrayList<>();
         while(map.size()!=0){
